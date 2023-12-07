@@ -12,7 +12,8 @@ let b = {
 }
 
 function fn2(arg2) {
-    arg2.prop = 1;
+    // arg2.prop = 1;
+    arg2 = {};
     console.log(b, arg2);
 }
 
