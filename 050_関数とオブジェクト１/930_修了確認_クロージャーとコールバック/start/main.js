@@ -9,7 +9,9 @@
  * 
  */
 function hello(name) {
-  
+    return function() {
+        console.log('hello ' + name);
+    }
 }
 
 /**
