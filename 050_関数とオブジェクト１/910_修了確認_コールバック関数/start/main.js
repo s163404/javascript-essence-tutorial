@@ -12,7 +12,10 @@ const person = {
     }
 }
 
-// setTimeout(/** ここに追記 */, 1000);
+setTimeout(function() {
+    const greet = person.hello();
+    console.log(greet);
+}, 1000);
 
 /**
  * 問題２：
@@ -46,12 +49,17 @@ function after1s(callack) {
 }
 
 // この時点で実行します。
-// after1s(obj.greeting);
+after1s(obj.greeting);
 
 // この後でgreetingを書き換えます。
 obj.greeting = function() {
     console.log('hey');
 }
+
+// 解答: hello
+// 理由: after1sに渡される引数はobj.greeting でなく、
+// obj.greetingが参照するオブジェクト(helloを出力する関数)への参照である。
+// greetingの書き換えでおこることは、obj.greetingが参照するオブジェクトの参照の変更であり、after1sに渡されたオブジェクトには変更はされない。
 
 
 /**
@@ -63,32 +71,32 @@ obj.greeting = function() {
  * 
  * ※コールバック関数を用いて実装してください。
  */
-function calcFactory(val) {
+function calcFactory(val, callback) {
     return {
         plus: function(target) {
             const newVal = val + target;
-            console.log(`${val} + ${target} = ${newVal}`);
+            callback(`${val} + ${target} = ${newVal}`);
             val = newVal;
         },
         minus: function(target) {
             const newVal = val - target;
-            console.log(`${val} - ${target} = ${newVal}`);
+            callback(`${val} - ${target} = ${newVal}`);
             val = newVal;
         },
         multiply: function(target) {
             const newVal = val * target;
-            console.log(`${val} x ${target} = ${newVal}`);
+            callback(`${val} x ${target} = ${newVal}`);
             val = newVal;
         },
         divide: function(target) {
             const newVal = val / target;
-            console.log(`${val} / ${target} = ${newVal}`);
+            callback(`${val} / ${target} = ${newVal}`);
             val = newVal;
         }
     };
 }
 
-const calc = calcFactory(10);
+const calc = calcFactory(10, console.log);
 calc.plus(5); 
 calc.minus(3); 
 calc.multiply(3);

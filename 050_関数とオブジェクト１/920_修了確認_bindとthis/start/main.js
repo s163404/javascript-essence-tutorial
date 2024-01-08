@@ -22,6 +22,22 @@ const person = {
      * ２．アロー関数
      * ３．thisを一旦変数に代入
      */
+    hello1s() {
+        // bind
+        // setTimeout(this.hello.bind(this, 'hello'));
+        
+        // アロー関数
+        setTimeout(() => {
+            this.hello('hello');
+        }, 1000);
+
+        // thisを一旦変数に代入
+        const _this = this;
+        setTimeout(function() {
+            _this.hello('hello');
+        })
+    }
+        
 
 
     
