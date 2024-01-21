@@ -21,3 +21,12 @@ class Person {
 
 const bob = new Person('Bob', 23);
 setTimeout(bob.hello, 1000);
+
+// 元のsetTimeoutはbob.hello という"関数"を渡しているにすぎない
+// 回答
+// 1 thisをbobに設定する回答
+setTimeout(bob.hello.bind(bob), 1000);
+// 2 bobオブジェクトのhelloメソッドを実行する関数を渡すやり方
+setTimeout(function() {
+  bob.hello();
+}, 1000);
