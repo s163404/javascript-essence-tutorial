@@ -39,6 +39,32 @@
  * customFn3
  * 
  */
+ const events = (function() {
+	const eventStack = new Map();
+	return {
+		on(type, fn) {
+			const fnStack = eventStack.get(type) || new Set();
+			fnStack.add(fn);
+			eventStack.set(type, fnStack);
+		},
+		off(type, fn) {
+			const fnStack = eventStack.get(type);
+			if(fnStack && fnStack.has(fn)) {
+				fnStack.delete(fn);
+			}
+
+		},
+		emit(type) {
+			const fnStack = eventStack.get(type);
+			if(fnStack) {
+				for(const fn of fnStack) {
+					fn();
+				}
+			}
+		}
+	}
+})();
+
 
 class MyLibrary {
 	constructor() {

@@ -18,3 +18,21 @@
  * 
  * の値が順番にコンソールに表示されます。
  */
+
+
+function* genStep({min=0, max=10, step=1} = {}) { // デフォルト値
+    for (let i = min; i <= max; i+=step) {
+        yield i;
+    }
+}
+
+const it = genStep({min: 4, max: 10, step: 2});
+for(let value of it) {
+  console.log(value);
+}
+
+
+const it2 = genStep({min:4, step:1});
+for(let value of it2) {
+  console.log(value);
+}

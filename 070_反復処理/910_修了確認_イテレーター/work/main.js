@@ -21,12 +21,26 @@
  * の値が順番にコンソールに表示されます。
  */
 
+function genStep(min=1, max=10, step=1) {
+
+    let i = min - step; // 最初の反復実行にてminの値が返されるようにstep文を引いている。
+    return {
+        next() {
+            if (i < max) {
+                i+=step;
+                return { value: i, done: false  }
+            } else {
+                return { value: max, done: true }
+            }
+        }
+    }
+}
 
  
-// const it = genStep(4, 10, 2);
-// let a = it.next();
+const it = genStep(4, 10, 2);
+let a = it.next();
 
-// while(!a.done) {
-//   console.log(a.value);
-//   a = it.next();
-// }
+while(!a.done) {
+  console.log(a.value);
+  a = it.next();
+}
