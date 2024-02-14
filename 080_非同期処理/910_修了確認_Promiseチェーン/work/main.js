@@ -35,3 +35,22 @@ async function myFetch(fileName) {
 	const json = await response.json();
 	return json;
 }
+
+// const user1Info = myFetch("user1.json");
+// console.log(user1Info);
+
+(async function() {
+	const user1Info =  await myFetch("user1.json");
+	const friendList = await myFetch(`friendsOf${user1Info.id}.json`);
+
+	const friendIds = new Set();
+	for(const id of friendList.friendIds) {
+		const userInfo = await myFetch(`user${id}.json`);
+
+		const msgId = userInfo.latestMsgId;
+		const msgText = await myFetch(`message${msgId}.json`);
+
+		console.log(`${userInfo.name}: ${msgText.message}`)
+	}
+})();
+
