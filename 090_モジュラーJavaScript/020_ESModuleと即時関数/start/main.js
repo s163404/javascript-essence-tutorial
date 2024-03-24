@@ -6,7 +6,7 @@ const moduleA = (function () {
   let publicVal = 10;
 
   function publicFn() {
-    console.log('publicFn called: ' + publicVal);
+    console.log('publicFn called: ' + publicVal++ );
   }
 
   function privateFn() {
@@ -18,3 +18,29 @@ const moduleA = (function () {
     publicVal
   }
 })();
+
+moduleA.publicFn();
+moduleA.publicFn();
+moduleA.publicFn();
+console.log(moduleA.publicVal);
+
+// 出力
+// IIFE called
+// publicFn called: 10
+// publicFn called: 11
+// publicFn called: 12
+// 10
+
+
+// const moduleB = (function(moduleA) {
+//   moduleA.publicFn();
+//   moduleA.publicFn();
+//   moduleA.publicFn();
+//   console.log(moduleA.publicVal);
+// })(moduleA);
+const moduleB = (function({ publicFn, publicVal }) {
+  publicFn();
+  publicFn();
+  publicFn();
+  console.log(publicVal);
+})(moduleA);
